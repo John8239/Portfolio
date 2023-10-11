@@ -1,0 +1,79 @@
+﻿@page
+@model Portfolio.Pages.AboutYouFormModel
+
+<div class="about-you-page-container">
+    <div class="row title text-center">
+        <h2 class="mb-5 mt-3">Example Form About YOU</h2>
+    </div>
+
+    <form method="post" asp-page-handler="FormSubmit">
+        <div class="row justify-content-center form-container m-2">
+            <div class="box col-8">
+                <div class="row justify-content-center">
+                    <div class="col-4">
+                        <div class="first-name-container row p-2 my-2">
+                            <label asp-for="FirstName" class="col-4 control-label mr-2"></label>
+                            <input asp-for="FirstName" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                        <div class="last-name-container row p-2 my-2">
+                            <label asp-for="LastName" class="col-4 control-label mr-2"></label>
+                            <input asp-for="LastName" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                        <div class="dob-container row p-2 my-2">
+                            <label asp-for="BirthDate" class="col-4 control-label mr-2"></label>
+                            <input type="date" asp-for="BirthDate" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                        <div class="job-title-container row p-2 my-2">
+                            <label asp-for="JobTitle" class="col-4 control-label mr-2"></label>
+                            <input asp-for="JobTitle" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                        <div class="salary-container row p-2 my-2">
+                            <label asp-for="Salary" asp-format="{0:C}" class="col-4 control-label mr-2"></label>
+                            <input asp-for="Salary" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="car-make-container row p-2 my-2">
+                            <label asp-for="CarMake" class="col-4 control-label mr-2 exclude-opaque"></label>
+                            <select asp-for="CarMake" asp-items="Model.CarMakeList" class="col-8 rounded border border-info shadow-sm"></select>
+                        </div>
+                        <div class="pets-container row p-2 my-2">
+                            <label asp-for="Pets" id="Pets" class="col-4 control-label mr-2"></label>
+                            <div class="col-4 d-flex justify-content-between">
+                                <label>Yes</label>
+                                <input asp-for="Pets" type="radio" value="true" data-bs-toggle="collapse" data-bs-target="#number-of-pets-container:not(.show)" />
+                                <label>No</label>
+                                <input asp-for="Pets" type="radio" value="false" data-bs-toggle="collapse" data-bs-target="#number-of-pets-container.show" checked />
+                            </div>
+                        </div>
+                        <div id="number-of-pets-container" class="collapse">
+                            <div class="row p-2 my-2">
+                                <label asp-for="NumberOfPets" class="col-4 control-label"></label>
+                                <input asp-for="NumberOfPets" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                            </div>
+                        </div>
+                        <div class="favorite-book-container row p-2 my-2">
+                            <label asp-for="FavoriteBook" class="col-4 control-label mr-2"></label>
+                            <input asp-for="FavoriteBook" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                        <div class="favorite-movie-container row p-2 my-2">
+                            <label asp-for="FavoriteMovie" class="col-4 control-label mr-2"></label>
+                            <input asp-for="FavoriteMovie" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                        <div class="favorite-game-container row p-2 my-2">
+                            <label asp-for="FavoriteGame" class="col-4 control-label mr-2"></label>
+                            <input asp-for="FavoriteGame" class="col-8 rounded border border-info shadow-sm exclude-opaque" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center py-5 my-5">
+                    <div class="col-8">
+                        <div class="d-grid gap-2 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

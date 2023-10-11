@@ -1,0 +1,103 @@
+﻿@page
+@model Portfolio.Pages.SheetMusicModel
+@using Portfolio.Enums
+@{
+    Dictionary<Enumerations.SheetMusic, string> sheetMusicArr = new Dictionary<Enumerations.SheetMusic, string> {
+        { Enumerations.SheetMusic.momentMusiceaux3, "../resources/Music/Arrangements/moment-musiceaux-arr.pdf" },
+        { Enumerations.SheetMusic.marchSlav, "../resources/Music/Arrangements/march-slav-arr.pdf" }
+    };
+
+    Dictionary<Enumerations.SheetMusic, string> sheetMusicComp = new Dictionary<Enumerations.SheetMusic, string> {
+        { Enumerations.SheetMusic.fugue, "../resources/Music/Compositions/fugue_comp.pdf" },
+        { Enumerations.SheetMusic.myNativeLand, "../resources/Music/Compositions/my_native_land_comp.pdf" },
+        { Enumerations.SheetMusic.nocturneNostalgia, "../resources/Music/Compositions/nocturne_1_nostalgia_comp.pdf" },
+        { Enumerations.SheetMusic.nocturneCalm, "../resources/Music/Compositions/nocturne_2_calm_comp.pdf" },
+        { Enumerations.SheetMusic.rhapsody1, "../resources/Music/Compositions/rhapsody_1_comp.pdf" },
+        { Enumerations.SheetMusic.rhapsody2, "../resources/Music/Compositions/rhapsody_2_rhapsonata_comp.pdf" },
+        { Enumerations.SheetMusic.sonatinaCarnival, "../resources/Music/Compositions/sonatina_the_carnival_comp.pdf" },
+        { Enumerations.SheetMusic.thankYou, "../resources/Music/Compositions/thank_you_for_sung_comp.pdf" }
+    };
+
+    Dictionary<string, Dictionary<Enumerations.SheetMusic, string>> music = new Dictionary<string, Dictionary<Enumerations.SheetMusic, string>>
+    {
+        { "Compositions", sheetMusicComp },
+        { "Arrangements", sheetMusicArr }
+    };
+}
+
+@* This technically works but I still need to figure out how to make it work better (also it was added to the Layout page scripts as well) *@
+
+@section scripts
+    {
+    <script src="@Url.Content("~/Scripts/sheetMusic.js")"></script>
+}
+
+<div class="page-container">
+    <div class="row title text-center">
+        <h2 class="mb-5 mt-3">My Music</h2>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8 border-1">
+            <div class="row">
+                @foreach (var sheets in music)
+                {
+                    int count = 0;
+
+                    <div class="row p-2 m-2">
+                        <h4 class="p-2">@sheets.Key</h4>
+                    </div>
+
+                    @foreach (var sheet in sheets.Value)
+                    {
+                        <div class="col-4 py-2 my-2">
+                            <input type="hidden" id="@sheet.Key.ToString()-path" value=@sheet.Value />
+                            <div class="card">
+                                <div class="card-header @sheet.Key-display-name">
+                                    @Enumerations.GetSheetMusicDisplayName(sheet.Key)
+                                </div>
+                                <div class="card-body">
+                                    <div class="iframe-container">
+                                        <iframe class="responsive-iframe" src="@sheet.Value#toolbar=0" type="application/pdf"></iframe>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="button" id="@sheet.Key.ToString()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pdf-viewer">
+                                        View
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        count++;
+                        if (count == 3)
+                        {
+                            count = 0;
+                            <div class="row"></div>
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Modal *@
+<div class="modal fade" id="pdf-viewer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="pdf-viewer-label" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pdf-viewer-label">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="iframe" class="iframe-container" oncontextmenu="return false">
+                    @*oncontextmenu="return false" prevents Save As for PDF ---- This isn't working anymore.....*@
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
